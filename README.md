@@ -1,4 +1,4 @@
-<img width="2544" height="1352" alt="afc357d1c942faf3d0d277f37cf88e00" src="https://github.com/user-attachments/assets/73291c9f-f379-4a23-8566-dc454a633174" /># 🤖 项目风险监控 Agent
+# 🤖 项目风险监控 Agent
 > 一个基于 Python + Trello API 的智能项目风险监控工具，自动追踪任务进度、识别延期风险并执行应对措施。
 
 ## 📌 项目背景
@@ -30,3 +30,86 @@
 
 ## 📸 效果展示
 <img width="2544" height="1352" alt="afc357d1c942faf3d0d277f37cf88e00" src="https://github.com/user-attachments/assets/f0548e94-8a61-4d6f-ab77-9ae5e71a0a18" />
+
+### 终端运行日志
+🤖 Agent启动！开始模拟项目管理...
+📋 开始创建任务...
+✅ 创建任务成功：无人机飞行控制算法开发 → 待办（3天后截止）
+✅ 创建任务成功：传感器数据融合模块 → 待办（5天后截止）
+...
+🚀 模拟项目推进：将部分任务移入【进行中】...
+📌 无人机飞行控制算法开发 → 进行中
+📌 传感器数据融合模块 → 进行中
+⏰ 模拟：'无人机飞行控制算法开发'任务已延期3天...
+🔔 运行风险监控模块...
+🔴 严重预警：任务 '无人机飞行控制算法开发' 已逾期 3 天！
+🟢 任务 '传感器数据融合模块' 状态正常，剩余 2 天。
+🤖 启动自动风险处理模块...
+🔄 自动操作：已将任务 '无人机飞行控制算法开发' 移回【待办】列表
+💡 建议：立即与负责人沟通，确认阻塞原因；评估是否需要增加人手
+📊 最终项目状态总结
+📋 总任务数：4
+【待办】：1 个
+【进行中】：3 个
+【已完成】：0 个
+⚠️ 风险任务：1 个
+
+
+### Trello 看板效果
+运行后，Trello 看板上的卡片会自动：
+- 显示**截止日期**
+- 带有**红色⚠️风险**或**绿色✅正常**标签
+- 严重风险卡片自动从"进行中"移回"待办"
+
+
+## 运行步骤
+1. 注册 [Trello](https://trello.com) 账号
+2. 在 Trello 中创建一个名为 **"无人机巡检系统开发"** 的看板
+3. 在看板中创建三个列表：**待办**、**进行中**、**已完成**
+4. 获取 Trello API 密钥
+
+### 获取 Trello API 密钥
+1. 登录 Trello 后访问：https://trello.com/power-ups/admin
+2. 点击 **"创建新的Power-Up"**，填写：
+   - 名称：`Project Risk Agent`
+   - 工作空间：选择你的个人工作空间
+   - 其他字段随意填写，**iframe连接器URL留空**
+3. 创建成功后，页面会显示 **API Key**，复制保存
+4. 在页面下方点击 **"生成Token"**，复制保存
+
+### 安装与运行
+```bash
+# 1. 克隆仓库
+git clone https://github.com/你的用户名/project-risk-agent.git
+cd project-risk-agent
+
+# 2. 创建虚拟环境
+python -m venv .venv
+
+# 3. 激活虚拟环境
+# Windows:
+.venv\Scripts\activate
+# Mac/Linux:
+source .venv/bin/activate
+
+# 4. 安装依赖
+pip install py-trello
+
+# 5. 配置密钥
+# 打开 agent.py，将 API_KEY 和 TOKEN 替换为你的真实值
+
+# 6. 运行
+python agent.py
+
+项目结构
+project-risk-agent/
+├── agent.py              # 主程序代码
+├── README.md             # 项目文档（本文件）
+└── .gitignore            # Git 忽略文件配置
+
+📈 后续优化方向
+集成企业微信/钉钉 Webhook，实现自动消息推送
+支持多项目并行监控
+对接真实项目数据（如 Jira、飞书项目）
+增加历史数据趋势分析，预测未来风险
+开发 Web 界面，替代命令行操作
